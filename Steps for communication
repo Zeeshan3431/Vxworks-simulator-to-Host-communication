@@ -1,0 +1,72 @@
+step1 install wrtap driver on 32 bit wondows 
+
+To Install the Driver on a Windows XP Host:
+1. Open the Control Panel.
+2. Double-click Add Hardware to open the Add Hardware Wizard, click Next.
+3. Answer Yes, I have already connected the hardware, click Next.
+4. Select Add a new hardware device (you may need to scroll down to see this
+option), click Next.
+5. Select Install the hardware that I manually select from a list (Advanced).
+6. Click Next.
+7. Select Network Adapters, click Next.
+8. Click the Have Disk... button.
+9. Browse to installDir\vxworks-6.x\host\x86-win32\bin (installDir is the
+name of your VxWorks installation directory).
+10. Select wrtap.inf and click Open.
+11. Click OK to select the directory.
+12. Select WindRiver WRTAP, click Next.
+NOTE: If you are working on a Windows host, installing the host connection driver
+(the WRTAP driver) can have an impact on your host system performance. Before
+installing this driver, review the information in 5.4.1 Managing the WRTAP Driver
+on Windows Hosts, p.68.
+5 Networking with the VxWorks Simulator
+5.4 Installing the Host Connection Driver
+67
+5
+13. Click Next to start installing the driver.
+14. Click Continue Anyway in the Hardware installation pop-up window.
+15. Click Finish to close the wizard. 
+
+Step 2 
+in network adapter options , you will see windriver wrtap interface ,
+ make its ip static to 192.168.200.254
+
+Step 3
+Now you have to make a configuration file NDC.txt and keep it at location
+ C:\WindRiver-GPPVE-3.6-ARM-Eval  contents of NDC.txt are as
+
+SUBNET_START default {
+SUBNET_ADDRESS = "192.168.200.0";
+SUBNET_EXTERNAL = yes;
+SUBNET_EXTPROMISC = yes;
+};
+
+Step 4
+
+Now open vxworks devlopment shell as administartor from search bar and write folloing 
+command to enable wrtap driver , and to start vxworks network daemon service
+
+C:\WindRiver-GPPVE-3.6-ARM-Eval>   vxsimnetd -f C:\WindRiver-GPPVE-3.6-ARM-Eval\NDC.txt -s
+
+step 5
+Now you have to open vxworks simulator vxsim0 from vxworks devlopment shell (as an administrator)
+(Note if you open vxorks simulator from workbench and assign it ip then it doesnot work)
+so for successfull communication of vxworks simulator to your PC , vxsim must be open through
+vxworks devlopment shell and in vxsimo properties slect advanced boot parameters>>boot device=simnet, its command is 
+
+to open simulator in which you have configured your project , try this in vxworks devlopment shell
+to open that simulator with ping included (in this its configured with project test2)
+
+vxsim -d simnet -e 192.168.200.1 -f C:\WindRiver-GPPVE-3.6-ARM-Eval\workspace\test2\default\vxWorks
+     
+ -d simnet This specifies the network device driver to use.
+
+now you can ping vxsim from your pc 
+
+Here i have configured vxsim0 for communication with my pc...if you want to send data from
+vxworks to your PC, you have to 1st create image project, write your code there and build it
+like i created test2 project here...after that i opened vxsim0 proberties >> custom simulator>>browse>>C:\WindRiver-GPPVE-3.6-ARM-Eval\workspace\test2\default\vxworks
+for displaying output of test2 project in vxsim0 , open prjConfig.c file or your image project and call your function in 
+that like in my case function was udpsend(), 
+
+now when you run simulator vxsim0 from devlopment shell test2 project will automatically start running in this vxsim0
