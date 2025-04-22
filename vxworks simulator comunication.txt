@@ -1,0 +1,45 @@
+Gui way to establisj communications between 2 vxworks simulators or between simulator to your pc
+
+step1 install wrtap driver on 32 bit wondows 
+
+To Install the Driver on a Windows XP Host:
+1. Open the Control Panel.
+2. Double-click Add Hardware to open the Add Hardware Wizard, click Next.
+3. Answer Yes, I have already connected the hardware, click Next.
+4. Select Add a new hardware device (you may need to scroll down to see this
+option), click Next.
+5. Select Install the hardware that I manually select from a list (Advanced).
+6. Click Next.
+7. Select Network Adapters, click Next.
+8. Click the Have Disk... button.
+9. Browse to installDir\vxworks-6.x\host\x86-win32\bin (installDir is the
+name of your VxWorks installation directory).
+10. Select wrtap.inf and click Open.
+11. Click OK to select the directory.
+12. Select WindRiver WRTAP, click Next.
+NOTE: If you are working on a Windows host, installing the host connection driver
+(the WRTAP driver) can have an impact on your host system performance. Before
+installing this driver, review the information in 5.4.1 Managing the WRTAP Driver
+on Windows Hosts, p.68.
+5 Networking with the VxWorks Simulator
+5.4 Installing the Host Connection Driver
+67
+5
+13. Click Next to start installing the driver.
+14. Click Continue Anyway in the Hardware installation pop-up window.
+15. Click Finish to close the wizard. 
+
+step 2
+Go to following path C:\WindRiver-GPPVE-3.6-ARM-Eval\vxworks-6.6\host\x86-win32\bin and run 
+this application as administrator vxsimnetds_inst.exe, it will open windriver Networ daemon service in
+services app. Go to control pannel>> administrative tools>> services>> right click on windriver ntwork
+daemon service and start it
+
+it will enable wrtap driver
+
+Step 3:
+Now open windriver workbench , go to simulator properties>>advanced boot parameters, here select simnet as boot device
+  assign its ip to 192.168.200.3 and click ok
+In properties, go to miscellaneous options,,in other vxworks simulator option just type "-ni simnet"
+
+Now you can ping it from your system
