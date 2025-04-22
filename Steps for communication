@@ -1,5 +1,5 @@
 step1 install wrtap driver on 32 bit wondows 
-
+It was done on vxWorks 6.6 but can be implemented on any version
 To Install the Driver on a Windows XP Host:
 1. Open the Control Panel.
 2. Double-click Add Hardware to open the Add Hardware Wizard, click Next.
